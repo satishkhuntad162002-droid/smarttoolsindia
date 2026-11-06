@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartToolsIndia - Free Online Tools</title>
+<meta name="description" content="Free online calculators and useful tools for everyone.">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#17243a}
+header{background:#123d78;color:white;text-align:center;padding:30px 15px}
+header h1{margin:0;font-size:30px}
+header p{margin-bottom:0}
+main{max-width:850px;margin:auto;padding:20px}
+h2{text-align:center;color:#174783}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:white;padding:20px;border-radius:14px;box-shadow:0 3px 12px #0001}
+.card h3{color:#174783;margin-top:0}
+input{width:100%;padding:12px;margin:8px 0 14px;border:1px solid #ccc;border-radius:8px;font-size:16px}
+button{width:100%;padding:12px;border:0;border-radius:8px;background:#1764c0;color:white;font-size:16px;font-weight:bold}
+.result{background:#eaf3ff;padding:12px;margin-top:12px;border-radius:8px;min-height:20px}
+footer{text-align:center;padding:25px;color:#666}
+</style>
+</head>
+<body>
+<header>
+<h1>SmartToolsIndia</h1>
+<p>Free Online Tools For Everyone</p>
+</header>
+<main>
+<h2>Welcome to SmartToolsIndia</h2>
+<p style="text-align:center">Use our free online tools easily on your mobile.</p>
+<div class="tools">
+
+<div class="card">
+<h3>🎂 Age Calculator</h3>
+<label>Date of Birth</label>
+<input type="date" id="dob">
+<button onclick="ageCalc()">Calculate Age</button>
+<div class="result" id="ageResult"></div>
+</div>
+
+<div class="card">
+<h3>🏦 EMI Calculator</h3>
+<label>Loan Amount (₹)</label>
+<input type="number" id="loan" placeholder="500000">
+<label>Interest Rate (%)</label>
+<input type="number" id="rate" placeholder="9">
+<label>Months</label>
+<input type="number" id="months" placeholder="60">
+<button onclick="emiCalc()">Calculate EMI</button>
+<div class="result" id="emiResult"></div>
+</div>
+
+<div class="card">
+<h3>🧾 GST Calculator</h3>
+<label>Amount (₹)</label>
+<input type="number" id="amount" placeholder="1000">
+<label>GST Rate (%)</label>
+<input type="number" id="gstRate" placeholder="18">
+<button onclick="gstCalc()">Calculate GST</button>
+<div class="result" id="gstResult"></div>
+</div>
+
+<div class="card">
+<h3>📊 Percentage Calculator</h3>
+<label>Total Marks</label>
+<input type="number" id="total" placeholder="500">
+<label>Obtained Marks</label>
+<input type="number" id="obtained" placeholder="350">
+<button onclick="percentCalc()">Calculate</button>
+<div class="result" id="percentResult"></div>
+</div>
+
+</div>
+</main>
+<footer>
+<p>About Us | Contact Us | Privacy Policy</p>
+<p>© 2026 SmartToolsIndia</p>
+</footer>
+
+<script>
+function get(id){
+return document.getElementById(id);
+}
+function ageCalc(){
+let d=get('dob').value;
+if(!d){get('ageResult').innerText='Please select date of birth';return;}
+let b=new Date(d+'T00:00:00'),t=new Date();
+if(b>t){get('ageResult').innerText='Invalid date';return;}
+let y=t.getFullYear()-b.getFullYear();
+let m=t.getMonth()-b.getMonth();
+let day=t.getDate()-b.getDate();
+if(day<0){m--;day+=new Date(t.getFullYear(),t.getMonth(),0).getDate();}
+if(m<0){y--;m+=12;}
+get('ageResult').innerText=y+' Years, '+m+' Months, '+day+' Days';
+}
+function emiCalc(){
+let p=Number(get('loan').value);
+let r=Number(get('rate').value)/1200;
+let n=Number(get('months').value);
+if(p<=0||r<0||n<=0){get('emiResult').innerText='Enter valid values';return;}
+let e=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+get('emiResult').innerText='Monthly EMI: ₹'+e.toFixed(2);
+}
+function gstCalc(){
+let a=Number(get('amount').value);
+let r=Number(get('gstRate').value);
+if(a<0||r<0||get('amount').value===''||get('gstRate').value===''){get('gstResult').innerText='Enter valid values';return;}
+let g=a*r/100;
+get('gstResult').innerText='GST: ₹'+g.toFixed(2)+' | Total: ₹'+(a+g).toFixed(2);
+}
+function percentCalc(){
+let t=Number(get('total').value);
+let o=Number(get('obtained').value);
+if(t<=0||o<0||get('total').value===''||get('obtained').value===''){get('percentResult').innerText='Enter valid values';return;}
+get('percentResult').innerText='Percentage: '+(o/t*100).toFixed(2)+'%';
+}
+</script>
+</body>
+</html>
